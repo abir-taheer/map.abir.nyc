@@ -79,6 +79,8 @@ export const Map = () => {
     const accountedFor = new Set<string>();
     const heightsByHash: Record<string, number[]> = {};
 
+    const infoWindow = new google.maps.InfoWindow();
+
     buildings
       .filter(
         (building) => building.year >= startYear && building.year <= endYear,
@@ -126,7 +128,18 @@ export const Map = () => {
 
         overlay.set("fillColor", hex);
         overlay.setVisible(true);
+        overlay.addListener("click", () => {
+          const center = overlay.getBounds()!.getCenter();
+          const contentString = `
+            <p>Building heights at this location</p><br/>
+            <ul>${heights.map((h) => `<li>${h.toFixed(2)}ft</li>`).join("\n")}</ul>
+            <br/>
+            <p>Average height: <b>${average.toFixed(2)}</b>ft</p>`;
 
+          infoWindow.setContent(contentString);
+          infoWindow.setPosition(center);
+          infoWindow.open(map);
+        });
         return overlay;
       })
       .filter(Boolean);
