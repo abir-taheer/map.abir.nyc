@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Precision, Hash, Building, DataStore } from "../stores/data.ts";
+import { Building, DataStore, Hash, Precision } from "../stores/data.ts";
 import geohash from "ngeohash";
 
 export const usePrepareDataStore = () => {
@@ -8,17 +8,9 @@ export const usePrepareDataStore = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const getData = useCallback(async () => {
-    const root = await navigator.storage.getDirectory();
-    const fileHandle = await root.getFileHandle("data.json", { create: true });
-    const file = await fileHandle.getFile();
-
-    if (file.size) {
-      console.log("loaded from ofps");
-      const text = await file.text();
-      return JSON.parse(text) as Building[];
-    }
-
-    const rows: number[][] = await fetch("/data.json").then((r) => r.json());
+    const rows: number[][] = await fetch("/data.json", {
+      cache: "force-cache",
+    }).then((r) => r.json());
 
     const genId = () => Math.floor(Math.random() * 10000000000000);
     const genHashes = (lat: number, lng: number) => {
@@ -31,7 +23,7 @@ export const usePrepareDataStore = () => {
 
       return hashes as Hash;
     };
-    const data = rows.map(([id, height, ground, year, lng, lat]) => ({
+    return rows.map(([id, height, ground, year, lng, lat]) => ({
       id: id ?? genId(),
       height,
       ground,
@@ -40,15 +32,6 @@ export const usePrepareDataStore = () => {
       lng,
       hash: genHashes(lat, lng),
     })) as Building[];
-
-    const text = JSON.stringify(data);
-    const accessHandle = await fileHandle.createWritable();
-    await accessHandle.write(text);
-    await accessHandle.close();
-
-    console.log("loaded into ofps");
-
-    return data;
   }, []);
 
   useEffect(() => {
