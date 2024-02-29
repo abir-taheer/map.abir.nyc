@@ -8,6 +8,7 @@ import {
 import { Map } from "./components/Map.tsx";
 import { usePrepareDataStore } from "./hooks/usePrepareDataStore.ts";
 import { OptionsForm } from "./components/OptionsForm.tsx";
+import { AnimationBox } from "./components/AnimationBox.tsx";
 
 function App() {
   const { loading, error } = usePrepareDataStore();
@@ -61,6 +62,8 @@ function App() {
         </Typography>
 
         <OptionsForm />
+
+        <AnimationBox />
 
         <Map />
       </Stack>

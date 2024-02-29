@@ -1,10 +1,12 @@
 import { useEffect, useId, useLayoutEffect } from "react";
-import { useTheme } from "@mui/joy";
+import { Card, useTheme } from "@mui/joy";
 import { MapStore } from "../stores/map.ts";
 import { DataStore } from "../stores/data.ts";
 import geohash from "ngeohash";
 import { OptionsStore } from "../stores/options.ts";
 import { useShallow } from "zustand/react/shallow";
+import { Legend } from "./Legend.tsx";
+import { OptionsPreview } from "./OptionsPreview.tsx";
 
 export const Map = () => {
   const id = useId();
@@ -131,9 +133,6 @@ export const Map = () => {
         overlay.addListener("click", () => {
           const center = overlay.getBounds()!.getCenter();
           const contentString = `
-            <p>Building heights at this location</p><br/>
-            <ul>${heights.map((h) => `<li>${h.toFixed(2)}ft</li>`).join("\n")}</ul>
-            <br/>
             <p>Average height: <b>${average.toFixed(2)}</b>ft</p>`;
 
           infoWindow.setContent(contentString);
@@ -162,9 +161,14 @@ export const Map = () => {
   ]);
 
   return (
-    <div
-      id={id}
-      style={{ width: "100%", height: 600, borderRadius: theme.radius.md }}
-    />
+    <Card>
+      <Legend />
+      <div
+        id={id}
+        style={{ width: "100%", height: 600, borderRadius: theme.radius.md }}
+      />
+
+      <OptionsPreview />
+    </Card>
   );
 };

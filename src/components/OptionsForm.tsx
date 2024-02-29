@@ -1,4 +1,8 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionGroup,
+  AccordionSummary,
   Button,
   Card,
   Divider,
@@ -48,89 +52,98 @@ export const OptionsForm = () => {
 
   return (
     <Card>
-      <Stack gap={2}>
-        <Stack direction={"row"} gap={2}>
-          <FormControl>
-            <FormLabel>Start Year</FormLabel>
-            <Input
-              value={startYear}
-              onChange={(ev) =>
-                !Number.isNaN(Number(ev.target.value)) &&
-                setStartYear(Number(ev.target.value))
-              }
-            />
-          </FormControl>
+      <AccordionGroup variant="plain" transition="0.2s">
+        <Accordion defaultExpanded>
+          <AccordionSummary>Options</AccordionSummary>
+          <AccordionDetails>
+            <Stack gap={2} paddingTop={2}>
+              <Stack direction={"row"} gap={2}>
+                <FormControl>
+                  <FormLabel>Start Year</FormLabel>
+                  <Input
+                    value={startYear}
+                    onChange={(ev) =>
+                      !Number.isNaN(Number(ev.target.value)) &&
+                      setStartYear(Number(ev.target.value))
+                    }
+                  />
+                </FormControl>
 
-          <FormControl>
-            <FormLabel>End Year</FormLabel>
-            <Input
-              value={endYear}
-              onChange={(ev) =>
-                !Number.isNaN(Number(ev.target.value)) &&
-                setEndYear(Number(ev.target.value))
-              }
-            />
-          </FormControl>
-        </Stack>
+                <FormControl>
+                  <FormLabel>End Year</FormLabel>
+                  <Input
+                    value={endYear}
+                    onChange={(ev) =>
+                      !Number.isNaN(Number(ev.target.value)) &&
+                      setEndYear(Number(ev.target.value))
+                    }
+                  />
+                </FormControl>
+              </Stack>
 
-        <Stack direction={"row"} gap={2}>
-          <Stack gap={2}>
-            <FormControl>
-              <FormLabel>Start Height</FormLabel>
-              <Input
-                value={startHeight}
-                onChange={(ev) =>
-                  !Number.isNaN(Number(ev.target.value)) &&
-                  setStartHeight(Number(ev.target.value))
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Start Height Color</FormLabel>
-              <input
-                style={{ border: 0, padding: 2, borderRadius: 4 }}
-                type={"color"}
-                value={startColor}
-                onChange={(ev) => setStartColor(ev.target.value)}
-              />
-              <FormHelperText>
-                Buildings approaching the start height will approach this color
-              </FormHelperText>
-            </FormControl>
-          </Stack>
+              <Stack direction={"row"} gap={2}>
+                <Stack gap={2}>
+                  <FormControl>
+                    <FormLabel>Start Height</FormLabel>
+                    <Input
+                      value={startHeight}
+                      onChange={(ev) =>
+                        !Number.isNaN(Number(ev.target.value)) &&
+                        setStartHeight(Number(ev.target.value))
+                      }
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Start Height Color</FormLabel>
+                    <input
+                      style={{ border: 0, padding: 2, borderRadius: 4 }}
+                      type={"color"}
+                      value={startColor}
+                      onChange={(ev) => setStartColor(ev.target.value)}
+                    />
+                    <FormHelperText>
+                      Buildings approaching the start height will approach this
+                      color
+                    </FormHelperText>
+                  </FormControl>
+                </Stack>
 
-          <Stack gap={2}>
-            <FormControl>
-              <FormLabel>End Height</FormLabel>
-              <Input
-                value={endHeight}
-                onChange={(ev) =>
-                  !Number.isNaN(Number(ev.target.value)) &&
-                  setEndHeight(Number(ev.target.value))
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>End Height Color</FormLabel>
-              <input
-                style={{ border: 0, padding: 2, borderRadius: 4 }}
-                type={"color"}
-                value={endColor}
-                onChange={(ev) => setEndColor(ev.target.value)}
-              />
-              <FormHelperText>
-                Buildings approaching the end height will approach to this color
-              </FormHelperText>
-            </FormControl>
-          </Stack>
-        </Stack>
+                <Stack gap={2}>
+                  <FormControl>
+                    <FormLabel>End Height</FormLabel>
+                    <Input
+                      value={endHeight}
+                      onChange={(ev) =>
+                        !Number.isNaN(Number(ev.target.value)) &&
+                        setEndHeight(Number(ev.target.value))
+                      }
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>End Height Color</FormLabel>
+                    <input
+                      style={{ border: 0, padding: 2, borderRadius: 4 }}
+                      type={"color"}
+                      value={endColor}
+                      onChange={(ev) => setEndColor(ev.target.value)}
+                    />
+                    <FormHelperText>
+                      Buildings approaching the end height will approach to this
+                      color
+                    </FormHelperText>
+                  </FormControl>
+                </Stack>
+              </Stack>
 
-        <Divider />
+              <Divider />
 
-        <Button variant={"soft"} onClick={handleSave}>
-          Save
-        </Button>
-      </Stack>
+              <Button variant={"soft"} onClick={handleSave}>
+                Save
+              </Button>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+      </AccordionGroup>
     </Card>
   );
 };
