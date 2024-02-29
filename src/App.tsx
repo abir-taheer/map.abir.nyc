@@ -9,6 +9,8 @@ import { Map } from "./components/Map.tsx";
 import { usePrepareDataStore } from "./hooks/usePrepareDataStore.ts";
 import { OptionsForm } from "./components/OptionsForm.tsx";
 import { AnimationBox } from "./components/AnimationBox.tsx";
+import { FAQs } from "./components/FAQs.tsx";
+import { Source } from "./components/Source.tsx";
 
 function App() {
   const { loading, error } = usePrepareDataStore();
@@ -57,15 +59,23 @@ function App() {
   return (
     <Container maxWidth={"md"} sx={{ padding: 4 }}>
       <Stack gap={2}>
-        <Typography level={"title-lg"} component={"h1"} textAlign={"center"}>
+        <Typography
+          level={"title-lg"}
+          component={"h1"}
+          textAlign={"center"}
+          marginY={2}
+        >
           NYC Building Heights Map
         </Typography>
 
         <OptionsForm />
 
         <AnimationBox />
-
         <Map />
+
+        <FAQs />
+
+        <Source />
       </Stack>
     </Container>
   );
